@@ -1,0 +1,53 @@
+Region,Category,Sub-Category,Sales
+Central,Furniture,Chairs,24981.6
+Central,Furniture,Tables,48028.57
+Central,Furniture,Bookcases,39279.76
+Central,Furniture,Furnishings,33946.34
+Central,Office Supplies,Binders,16240.75
+Central,Office Supplies,Paper,16239.78
+Central,Office Supplies,Envelopes,12323.34
+Central,Office Supplies,Labels,44647.05
+Central,Office Supplies,Storage,34044.6
+Central,Technology,Phones,38322.9
+Central,Technology,Accessories,10823.38
+Central,Technology,Machines,48796.39
+Central,Technology,Copiers,43297.71
+East,Furniture,Chairs,18493.56
+East,Furniture,Tables,17273.0
+East,Furniture,Bookcases,17336.18
+East,Furniture,Furnishings,22169.69
+East,Office Supplies,Binders,30990.26
+East,Office Supplies,Paper,27277.8
+East,Office Supplies,Envelopes,21649.17
+East,Office Supplies,Labels,34474.12
+East,Office Supplies,Storage,15579.75
+East,Technology,Phones,21685.79
+East,Technology,Accessories,24654.47
+East,Technology,Machines,28242.8
+East,Technology,Copiers,41407.04
+West,Furniture,Chairs,17986.95
+West,Furniture,Tables,30569.38
+West,Furniture,Bookcases,33696.58
+West,Furniture,Furnishings,11858.02
+West,Office Supplies,Binders,34301.79
+West,Office Supplies,Paper,16820.96
+West,Office Supplies,Envelopes,12602.06
+West,Office Supplies,Labels,47955.42
+West,Office Supplies,Storage,48625.28
+West,Technology,Phones,42335.89
+West,Technology,Accessories,22184.55
+West,Technology,Machines,13906.88
+West,Technology,Copiers,37369.32
+South,Furniture,Chairs,27606.1
+South,Furniture,Tables,14881.53
+South,Furniture,Bookcases,29807.08
+South,Furniture,Furnishings,11375.54
+South,Office Supplies,Binders,46372.82
+South,Office Supplies,Paper,20351.2
+South,Office Supplies,Envelopes,36500.89
+South,Office Supplies,Labels,22468.44
+South,Office Supplies,Storage,30802.72
+South,Technology,Phones,31868.41
+South,Technology,Accessories,17394.18
+South,Technology,Machines,48783.39
+South,Technology,Copiers,41005.31

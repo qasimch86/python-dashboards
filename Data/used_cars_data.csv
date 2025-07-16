@@ -1,0 +1,93 @@
+prompt,code,correctness_criteria,sample_answer,file_1,file_2,file_3,file_4,type,complexity,,,,,,,,,,,,,,,,,
+Do vehicles with more powerful engines tend to have a higher original price?,"import pandas as pd
+
+# Load data
+vehicles = pd.read_csv(""vehicles.csv"")
+specs = pd.read_csv(""specifications.csv"")
+performance = pd.read_csv(""performance.csv"")
+pricing = pd.read_csv(""pricing_history.csv"")
+
+# Keep only latest price record per vehicle
+pricing_latest = pricing.sort_values(by='Year', ascending=False).drop_duplicates('vehicle_id')
+
+# Merge all datasets on vehicle_id
+merged = vehicles.merge(specs, on='vehicle_id') \
+                 .merge(performance, on='vehicle_id') \
+                 .merge(pricing_latest, on='vehicle_id')
+
+# Drop nulls in key fields
+merged = merged.dropna(subset=['New_Price', 'Price'])
+
+# Create a new column for value retention ratio
+merged['value_retention'] = merged['Price'] / merged['New_Price']
+
+# Group by categorical factors to compare value retention
+grouped = merged.groupby(['Brand', 'Fuel_Type', 'Transmission', 'Owner_Type']).agg({
+    'value_retention': ['mean', 'count']
+}).reset_index()
+
+# Sort to find best average value retention
+grouped.columns = ['Brand', 'Fuel_Type', 'Transmission', 'Owner_Type', 'Mean_Retention', 'Count']
+top = grouped.sort_values(by='Mean_Retention', ascending=False)
+
+print(top.head(10))
+
+",The response states that there is a positive relationship between engine power (engine_num) and new vehicle price (New_Price).,"Vehicles with more powerful engines tend to have higher original prices. The Pearson correlation coefficient between engine size and the original vehicle price is approximately 0.71, indicating a moderately strong positive relationship. A linear regression analysis supports this finding, showing a positive slope and a p-value well below 0.05, confirming that engine power is a statistically significant predictor of a car’s new price. This suggests that engine capacity is a key factor influencing vehicle pricing.",,,,,Specific,Difficult,,,,,,,,,,,,,,,,,
+Which types of vehicles tend to retain their value better over time?,"# Import pandas library
+import pandas as pd
+
+# Load data
+vehicles = pd.read_csv(""vehicles.csv"")
+specs = pd.read_csv(""specifications.csv"")
+performance = pd.read_csv(""performance.csv"")
+pricing = pd.read_csv(""pricing_history.csv"")
+
+# Merge 1: vehicle + specs (safe, 1:1)
+merged = vehicles.merge(specs, on='vehicle_id')
+
+# Reduce performance: keep latest or average per vehicle
+performance_summary = performance.groupby('vehicle_id').agg({
+    'Kilometers_Driven': 'mean',
+    'mileage_num': 'mean',
+    'engine_num': 'mean',
+    'power_num': 'mean'
+}).reset_index()
+
+# Reduce pricing: keep latest (max year) per vehicle
+latest_pricing = pricing.sort_values('Year', ascending=False).drop_duplicates('vehicle_id')
+
+# Merge reduced performance and pricing
+merged = merged.merge(performance_summary, on='vehicle_id')
+merged = merged.merge(latest_pricing[['vehicle_id', 'New_Price', 'Price']], on='vehicle_id')
+
+# Drop rows with missing prices
+merged = merged.dropna(subset=['New_Price', 'Price'])
+
+# Calculate value retention
+merged['value_retention'] = merged['Price'] / merged['New_Price']
+
+# Group and analyze
+grouped = merged.groupby(['Brand', 'Fuel_Type', 'Transmission', 'Owner_Type']).agg({
+    'value_retention': ['mean', 'count']
+}).reset_index()
+
+grouped.columns = ['Brand', 'Fuel_Type', 'Transmission', 'Owner_Type', 'Mean_Retention', 'Count']
+print(grouped.sort_values('Mean_Retention', ascending=False).head(10))","Necessary Criteria
+The response identifies at least one group of vehicles (based on brand, fuel type, transmission, or owner type) that retains a higher percentage of its original price.
+
+The value retention is calculated as Price / New_Price for each vehicle.
+
+?? Conditional Criteria
+If the response reports value retention for diesel Maruti vehicles with second ownership, it states that the retention is approximately 0.99 and acknowledges that it's based on a single data point.
+
+If the response reports average value retention for Maruti and Renault petrol manuals, it states that this value is approximately 0.64.
+
+If the response includes Hyundai or Mercedes-Benz diesel manual vehicles, it states that the average retention is between 0.56 and 0.58.
+
+If the response compares value retention between categories, it correctly identifies diesel manuals and petrol manuals from certain brands as having higher retention than others.","Some types of vehicles clearly retain their value better over time. For example, diesel cars from Toyota and Maruti show notably high value retention. Interestingly, a second-owner diesel Maruti vehicle retained nearly 99% of its original value — though this result is based on a single observation and should be interpreted with caution.
+
+Among the more reliable segments, Hyundai and Mercedes-Benz diesel manual vehicles also performed well, averaging around 56–58% retention across multiple entries.
+
+In the petrol segment, manual models from Maruti and Renault retained approximately 64% of their original price — higher than many other vehicle types.
+
+These findings suggest that brand, fuel type, and transmission all play a key role in determining how well a car holds its value in the resale market.",,,,,,,,,,,,,,,,,,,,,,,
